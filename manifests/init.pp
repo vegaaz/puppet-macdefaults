@@ -1,35 +1,45 @@
 # Note that type can be one of:
 # string, data, int, float, bool, data, array, array-add, dict, dict-add
-define macdefaults($domain, $key, $value = false, $type = "string", $action = "write") {
-case $operatingsystem {
- Darwin:{
-  case $action {
-    "write": {
-      exec {"defaults write $domain $key -$type '$value'":
-        path => "/bin:/usr/bin",
-          unless => $type ? {
-            'bool' => $value ? {
-              'TRUE' => "defaults read $domain $key | grep -qx 1",
-              'FALSE' => "defaults read $domain $key | grep -qx 0"
-              },
-          default => "defaults read $domain $key | grep -qx $value | sed -e 's/ (.*)/\1/'"
+define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'write') {
+
+  case $type {
+    'bool': {
+      if $value {
+        $write_value = 'TRUE'
+      }
+      else {
+        $write_value = 'FALSE'
+      }
+    }
+    default: {
+      $write_value = $value
+    }
+  }
+
+  case $operatingsystem {
+   'Darwin':{
+    case $action {
+      'write': {
+        exec {"/usr/bin/defaults write ${domain} ${key} -${type} '${write_value}'":
+            unless => $type ? {
+              'bool' => $value ? {
+                true  => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -qx 1",
+                false => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -qx 0"
+                },
+            default  => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -qx ${value}"
+          }
+        }
+      }
+      'delete': {
+        exec {"/usr/bin/defaults delete ${domain} ${key}":
+          logoutput => false,
+          onlyif    => "/usr/bin/defaults read ${domain} | /usr/bin/grep -q '${key}'"
         }
       }
     }
-    "delete": {
-      exec {"defaults delete $domain $key":
-        path => "/bin:/usr/bin",
-        logoutput => false,
-        onlyif => "defaults read $domain | grep -q '$key'"
-      }
-    }
+   }
   }
- }
-}
 
 
 }
 
-class macdefaults{
-
-}
