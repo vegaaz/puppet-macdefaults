@@ -38,5 +38,8 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
         }
       }
     }
+    default: {
+      fail('Incorrect OS Used. Please use macOS only.')
+    }
   }
 }
