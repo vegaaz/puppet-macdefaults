@@ -37,9 +37,6 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
           fail('Only write and delete are supported values for action.')
         }
       }
-      default: {
-        fail('Only supported OS is Darwin')
-      }
     }
   }
 }
