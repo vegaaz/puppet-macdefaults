@@ -24,7 +24,7 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
         'write': {
           exec { "/usr/bin/defaults write ${domain} ${key} -${type} '${value}'":
             user   => $user,
-            unless => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -qx '${grep}'"
+            unless => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -q '${grep}'"
           }
         }
         'delete': {
