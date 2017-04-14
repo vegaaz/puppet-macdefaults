@@ -23,7 +23,7 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
       case $action {
         'write': {
           exec { "/usr/bin/defaults write ${domain} ${key} -${type} '${value}'":
-            user   => $user
+            user   => $user,
             unless => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -qx '${grep}'"
           }
         }
