@@ -27,20 +27,19 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
             unless => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -qx '${grep}'"
           }
         }
-      'delete': {
-        exec { "/usr/bin/defaults delete ${domain} ${key}":
-          logoutput => false,
-          onlyif    => "/usr/bin/defaults read ${domain} | /usr/bin/grep -q '${key}'"
+        'delete': {
+          exec { "/usr/bin/defaults delete ${domain} ${key}":
+            logoutput => false,
+            onlyif    => "/usr/bin/defaults read ${domain} | /usr/bin/grep -q '${key}'"
+          }
+        }
+        default: {
+          fail('Only write and delete are supported values for action.')
         }
       }
       default: {
-        fail('Only write and delete are supported values for action.')
+        fail('Only supported OS is Darwin')
       }
-    }
-
-    default: {
-      fail('Only supported OS is Darwin')
-    }
     }
   }
 }
