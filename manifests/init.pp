@@ -1,9 +1,20 @@
 # Note that type can be one of:
 # string, data, int, float, bool, data, array, array-add, dict, dict-add
-define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'write', $runas = 'root') {
+define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'write', $runas = 'root', $currenthost = false) {
 
   if $runas != 'root' {
     $user = $::current_user
+  }
+
+  if $currenthost {
+    $writecommand = '/usr/bin/defaults -currentHost write'
+    $readcommand = '/usr/bin/defaults -currentHost read'
+    $deletecommand = '/usr/bin/defaults -currentHost delete'
+  }
+  else {
+    $writecommand = '/usr/bin/defaults write'
+    $readcommand = '/usr/bin/defaults read'
+    $deletecommand = '/usr/bin/defaults delete'
   }
 
   case $value {
@@ -22,15 +33,16 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
     'Darwin':{
       case $action {
         'write': {
-          exec { "/usr/bin/defaults write ${domain} ${key} -${type} '${value}'":
+          exec { "${writecommand} ${domain} ${key} -${type} '${value}'":
             user   => $user,
-            unless => "/usr/bin/defaults read ${domain} ${key} | /usr/bin/grep -q '${grep}'"
+            unless => "${readcommand} ${domain} ${key} | /usr/bin/grep -q '${grep}'"
           }
         }
         'delete': {
-          exec { "/usr/bin/defaults delete ${domain} ${key}":
+          exec { "${deletecommand} ${domain} ${key}":
             logoutput => false,
-            onlyif    => "/usr/bin/defaults read ${domain} | /usr/bin/grep -q '${key}'"
+            user      => $user,
+            onlyif    => "${readcommand} ${domain} | /usr/bin/grep -q '${key}'"
           }
         }
         default: {
