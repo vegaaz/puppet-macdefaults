@@ -2,9 +2,10 @@
   "name": "call-macdefaults",
   "version": "0.1.0",
   "author": "call",
-  "summary": "",
+  "summary": "Manages macOS preferences using defaults.",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "github.com/call/puppet-macdefaults",
+  "issues_url": "github.com/call/puppet-macdefaults/issues",
   "dependencies": [
 
   ],
