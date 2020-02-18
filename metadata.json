@@ -1,14 +1,9 @@
 {
-  "name": "call-macdefaults",
-  "version": "0.1.0",
   "author": "call",
-  "summary": "Manages macOS preferences using defaults.",
-  "license": "Apache-2.0",
-  "source": "github.com/call/puppet-macdefaults",
+  "dependencies": [],
   "issues_url": "https://github.com/call/puppet-macdefaults/issues",
-  "dependencies": [
-
-  ],
+  "license": "Apache-2.0",
+  "name": "call-macdefaults",
   "operatingsystem_support": [
     {
       "operatingsystem": "Darwin",
@@ -17,13 +12,16 @@
       ]
     }
   ],
+  "pdk-version": "1.16.0",
   "requirements": [
     {
       "name": "puppet",
       "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
-  "pdk-version": "1.16.0",
+  "source": "github.com/call/puppet-macdefaults",
+  "summary": "Manages macOS preferences using defaults.",
+  "template-ref": "tags/1.16.0-0-gaf44904",
   "template-url": "https://github.com/puppetlabs/pdk-templates#1.16.0",
-  "template-ref": "tags/1.16.0-0-gaf44904"
+  "version": "0.1.1"
 }
