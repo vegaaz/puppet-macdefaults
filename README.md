@@ -3,9 +3,9 @@ macOS Defaults module for Puppet
 
 This module defines a `macdefaults` type which can manage preferences on macOS/OS X.
 
-It enable Puppet to manage any setting that is changed or set using `defaults`.
+The `macdefaults` type enables Puppet to manage any setting that is changed or set using `defaults`.
 
-This removes the need to include a large number of redundant `exec` statements to accomplish the same thing, for example:
+A `macdefaults` type obviates the need to include a large number of redundant `exec` statements to accomplish the same thing, for example:
 
 ```
 exec {'Set default paper size to A4':
@@ -16,7 +16,7 @@ exec {'Set default paper size to A4':
 
 # Usage
 
-- Add this module to your Puppet modules directory via R10k (recommended) or downloading and unzipping.
+- Add this module to your Puppet modules directory via r10k (recommended) or downloading and unzipping.
 - Make use of the code in any Puppet manifest or other module:
 
 ```
