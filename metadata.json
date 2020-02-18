@@ -5,7 +5,7 @@
   "summary": "Manages macOS preferences using defaults.",
   "license": "Apache-2.0",
   "source": "github.com/call/puppet-macdefaults",
-  "issues_url": "github.com/call/puppet-macdefaults/issues",
+  "issues_url": "https://github.com/call/puppet-macdefaults/issues",
   "dependencies": [
 
   ],
@@ -23,7 +23,7 @@
       "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
-  "pdk-version": "1.10.0",
-  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git#1.10.0",
-  "template-ref": "1.10.0-0-gbba9ac3"
+  "pdk-version": "1.16.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#1.16.0",
+  "template-ref": "tags/1.16.0-0-gaf44904"
 }
