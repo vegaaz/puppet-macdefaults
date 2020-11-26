@@ -35,14 +35,14 @@ define macdefaults($domain, $key, $value = false, $type = 'string', $action = 'w
         'write': {
           exec { "${writecommand} ${domain} ${key} -${type} '${value}'":
             user   => $user,
-            unless => "${readcommand} ${domain} ${key} | /usr/bin/grep -q '${grep}'"
+            unless => "${readcommand} ${domain} ${key} | /usr/bin/grep -q '^${grep}$'"
           }
         }
         'delete': {
           exec { "${deletecommand} ${domain} ${key}":
             logoutput => false,
             user      => $user,
-            onlyif    => "${readcommand} ${domain} | /usr/bin/grep -q '${key}'"
+            onlyif    => "${readcommand} ${domain} | /usr/bin/grep -q '^${key}$'"
           }
         }
         default: {
